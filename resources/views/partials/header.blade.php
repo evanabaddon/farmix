@@ -5,69 +5,27 @@ Mobile Menu
     <div class="vs-menu-area text-center">
         <button class="vs-menu-toggle"><i class="fal fa-times"></i></button>
         <div class="mobile-logo">
-            <a href="{{ url('/') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="Farmix"></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="Farmix"></a>
         </div>
         <div class="vs-mobile-menu">
             <ul>
                 <li>
-                    <a href="{{ url('/') }}">Home</a>
+                    <a href="{{ route('home') }}">Home</a>
                 </li>
                 <li>
-                    <a href="{{ url('/about') }}">About Us</a>
-                </li>
-                <li class="menu-item-has-children">
-                    <a href="{{ url('/service') }}">Service</a>
-                    <ul class="sub-menu">
-                        <li><a href="{{ url('/service') }}">Service</a></li>
-                        <li><a href="{{ url('/service-details') }}">Service Details</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item-has-children">
-                    <a href="{{ url('/blog') }}">Blog</a>
-                    <ul class="sub-menu">
-                        <li><a href="{{ url('/blog') }}">Blog</a></li>
-                        <li><a href="{{ url('/blog-details') }}">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item-has-children mega-menu-wrap">
-                    <a href="#">Pages</a>
-                    <ul class="mega-menu">
-                        <li><a href="#">Pagelist 1</a>
-                            <ul>
-                                <li><a href="{{ url('/') }}">Home Style 1</a></li>
-                                <li><a href="{{ url('/home-2') }}">Home Style 2</a></li>
-                                <li><a href="{{ url('/home-3') }}">Home Style 3</a></li>
-                                <li><a href="{{ url('/about') }}">About Us</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Pagelist 2</a>
-                            <ul>
-                                <li><a href="{{ url('/blog') }}">Blog</a></li>
-                                <li><a href="{{ url('/blog-details') }}">Blog Details</a></li>
-                                <li><a href="{{ url('/service') }}">service</a></li>
-                                <li><a href="{{ url('/service-details') }}">Service Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Pagelist 3</a>
-                            <ul>
-                                <li><a href="{{ url('/project') }}">Projects</a></li>
-                                <li><a href="{{ url('/project-details') }}">project details</a></li>
-                                <li><a href="{{ url('/team-details') }}">Team Details</a></li>
-                                <li><a href="{{ url('/contact') }}">Contact Us</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Pagelist 4</a>
-                            <ul>
-                                <li><a href="{{ url('/product') }}">Products</a></li>
-                                <li><a href="{{ url('/product-details') }}">product Details</a></li>
-                                <li><a href="{{ url('/cart') }}">Shopping Cart</a></li>
-                                <li><a href="{{ url('/checkout') }}">Checkout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <a href="{{ route('about') }}">About Us</a>
                 </li>
                 <li>
-                    <a href="{{ url('/contact') }}">Contact</a>
+                    <a href="{{ route('service') }}">Service</a>
+                </li>
+                <li>
+                    <a href="{{ route('blog') }}">Blog</a>
+                </li>
+                <li>
+                    <a href="{{ route('product') }}">Product</a>
+                </li>
+                <li>
+                    <a href="{{ route('contact') }}">Contact</a>
                 </li>
             </ul>
         </div>
@@ -152,7 +110,7 @@ Header Area
                     <div class="row align-items-center justify-content-between">
                         <div class="col-auto">
                             <div class="header-logo">
-                                <a href="{{ url('/') }}">
+                                <a href="{{ route('home') }}">
                                     <img src="{{ asset('assets/img/logo.png') }}" alt="logo">
                                 </a>
                             </div>
@@ -161,64 +119,22 @@ Header Area
                             <nav class="main-menu menu-style1 d-none d-lg-block">
                                 <ul>
                                     <li>
-                                        <a href="{{ url('/') }}">Home</a>
+                                        <a href="{{ route('home') }}">Home</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('/about') }}">About Us</a>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="{{ url('/service') }}">Service</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('/service') }}">Service</a></li>
-                                            <li><a href="{{ url('/service-details') }}">Service Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="{{ url('/blog') }}">Blog</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('/blog') }}">Blog</a></li>
-                                            <li><a href="{{ url('/blog-details') }}">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children mega-menu-wrap">
-                                        <a href="#">Pages</a>
-                                        <ul class="mega-menu">
-                                            <li><a href="#">Pagelist 1</a>
-                                                <ul>
-                                                    <li><a href="{{ url('/') }}">Home Style 1</a></li>
-                                                    <li><a href="{{ url('/home-2') }}">Home Style 2</a></li>
-                                                    <li><a href="{{ url('/home-3') }}">Home Style 3</a></li>
-                                                    <li><a href="{{ url('/about') }}">About Us</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Pagelist 2</a>
-                                                <ul>
-                                                    <li><a href="{{ url('/blog') }}">Blog</a></li>
-                                                    <li><a href="{{ url('/blog-details') }}">Blog Details</a></li>
-                                                    <li><a href="{{ url('/service') }}">service</a></li>
-                                                    <li><a href="{{ url('/service-details') }}">Service Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Pagelist 3</a>
-                                                <ul>
-                                                    <li><a href="{{ url('/project') }}">Projects</a></li>
-                                                    <li><a href="{{ url('/project-details') }}">project details</a></li>
-                                                    <li><a href="{{ url('/team-details') }}">Team Details</a></li>
-                                                    <li><a href="{{ url('/contact') }}">Contact Us</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Pagelist 4</a>
-                                                <ul>
-                                                    <li><a href="{{ url('/product') }}">Products</a></li>
-                                                    <li><a href="{{ url('/product-details') }}">product Details</a></li>
-                                                    <li><a href="{{ url('/cart') }}">Shopping Cart</a></li>
-                                                    <li><a href="{{ url('/checkout') }}">Checkout</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                        <a href="{{ route('about') }}">About Us</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('/contact') }}">Contact</a>
+                                        <a href="{{ route('service') }}">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('blog') }}">Blog</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('product') }}">Product</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('contact') }}">Contact</a>
                                     </li>
                                 </ul>
                             </nav>
