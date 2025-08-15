@@ -45,7 +45,12 @@ Header Area
                             <li><i class="far fa-map-marker-alt"></i>{{ $generalSettings->site_address }}</li>
                             <li><i class="far fa-envelope"></i><a href="mailto:{{ $generalSettings->site_email }}">{{ $generalSettings->site_email }}</a></li>
                             <li><i class="far fa-phone-alt"></i><a href="tel:{{ $generalSettings->site_phone }}">{{ $generalSettings->site_phone }}</a></li>
-                            <li><i class="far fa-clock"></i>Mon - Sat: 09.00 to 06.00</li>
+                            @if(isset($generalSettings->working_hours) && count($generalSettings->working_hours) > 0)
+                                <li>
+                                    <i class="far fa-clock"></i>
+                                    {{ $generalSettings->working_hours[0]['day'] }}: {{ $generalSettings->working_hours[0]['hours'] }}
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

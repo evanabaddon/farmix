@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\HomeSlider;
 use App\Models\OfferBanner;
 use App\Models\BlogCategory;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Settings\GeneralSettings;
 use App\Settings\HomePageSettings;
@@ -54,6 +55,8 @@ class FrontendController extends Controller
             ->take(3)
             ->get();
 
+        // Brands
+        $brands = Brand::all();
 
         return view('home', [
             'sliders'    => $sliders,
@@ -64,6 +67,7 @@ class FrontendController extends Controller
             'rightItems' => $rightItems,
             'latestPosts'   => $latestPosts, 
             'teams'       => $teams,
+            'brands' => $brands,
         ]);
 
         // return view('home', compact('sliders'));

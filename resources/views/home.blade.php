@@ -432,41 +432,13 @@ Brand Area
     <div class="container">
         <div class="row vs-carousel z-index-common" data-arrows="false" data-wow-delay="0.4s" data-slide-show="6"
             data-lg-slide-show="4" data-md-slide-show="4" data-xs-slide-show="2" data-center-mode="true" data-autoplay="true">
+            @foreach($brands as $brand)
                 <div class="col-auto">
                     <div class="bran-img">
-                        <img src="https://html.vecurosoft.com/farmix/demo/assets/img/brand/brand-1.png" alt="brand">
+                        <img src="{{ asset('storage/' . $brand->image) }}" alt="{{ $brand->name }}">
                     </div>
                 </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="https://html.vecurosoft.com/farmix/demo/assets/img/brand/brand-2.png" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="https://html.vecurosoft.com/farmix/demo/assets/img/brand/brand-3.png" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="https://html.vecurosoft.com/farmix/demo/assets/img/brand/brand-4.png" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="https://html.vecurosoft.com/farmix/demo/assets/img/brand/brand-5.png" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="https://html.vecurosoft.com/farmix/demo/assets/img/brand/brand-6.png" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="https://html.vecurosoft.com/farmix/demo/assets/img/brand/brand-1.png" alt="brand">
-                    </div>
-                </div>
+            @endforeach
         </div>
     </div>
 </div>
