@@ -1,55 +1,4 @@
 <!--==============================
-    Brand Area
-============================== -->
-<div class="brand-layout1 space-bottom">
-    <div class="container">
-        <div class="row vs-carousel z-index-common" data-arrows="false" data-wow-delay="0.4s" data-slide-show="6"
-            data-lg-slide-show="5" data-md-slide-show="4" data-xs-slide-show="2" data-center-mode="true" data-autoplay="true">
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="{{ asset('assets/img/brand/brand-1.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="{{ asset('assets/img/brand/brand-2.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="{{ asset('assets/img/brand/brand-3.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="{{ asset('assets/img/brand/brand-4.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="{{ asset('assets/img/brand/brand-5.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="{{ asset('assets/img/brand/brand-6.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="{{ asset('assets/img/brand/brand-1.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="bran-img">
-                        <img src="{{ asset('assets/img/brand/brand-2.png') }}" alt="brand">
-                    </div>
-                </div>
-            </div>
-    </div>
-</div>
-
-<!--==============================
     Footer Area
 ==============================-->
 <footer class="footer-wrapper footer-layout1" data-bg-src="{{ asset('assets/img/bg/footer-bg-1-1.jpg') }}">
@@ -61,7 +10,7 @@
                         <div class="media-icon"><img src="{{ asset('assets/img/icon/icon-1-1.png') }}" alt="icon"></div>
                         <div class="media-body">
                             <h3 class="media-title">Phone No:</h3>
-                            <p class="media-info"><a href="tel:+88013004451">+88 013 00 44 51</a> <br> Mon - Sat: 09.00 to 06.00</p>
+                            <p class="media-info"><a href="tel:{{ $generalSettings->site_phone }}">{{ $generalSettings->site_phone }}</a></p>
                         </div>
                     </div>
                 </div>
@@ -70,7 +19,7 @@
                         <div class="media-icon"><img src="{{ asset('assets/img/icon/icon-1-2.png') }}" alt="icon"></div>
                         <div class="media-body">
                             <h3 class="media-title">Email Address:</h3>
-                            <p class="media-info"><a href="mailto:example@domain.com">example@domain.com</a> <br> <a href="mailto:officename@example.com">officename@example.com</a></p>
+                            <p class="media-info"><a href="mailto:{{ $generalSettings->site_email }}">{{ $generalSettings->site_email }}</a></p>
                         </div>
                     </div>
                 </div>
@@ -79,7 +28,7 @@
                         <div class="media-icon"><img src="{{ asset('assets/img/icon/icon-1-3.png') }}" alt="icon"></div>
                         <div class="media-body">
                             <h3 class="media-title">Location:</h3>
-                            <p class="media-info">5919 Trussville,Birmingham, United Kingdom</p>
+                            <p class="media-info">{{ $generalSettings->site_address }}</p>
                         </div>
                     </div>
                 </div>
@@ -93,13 +42,27 @@
                     <div class="widget footer-widget">
                         <div class="vs-widget-about">
                             <div class="footer-logo">
-                                <a href="{{ url('/') }}"><img src="{{ asset('assets/img/logo-2.png') }}" alt="logo"></a>
+                                <a href="{{ url('/') }}"><img src="{{ asset('storage/' . $generalSettings->site_logo) }}" alt="{{ $generalSettings->site_name }}"></a>
                             </div>
-                            <p class="footer-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor in cididunt ut labore et dolo aliqua.</p>
+                            <p class="footer-text">{{ $generalSettings->site_description }}</p>
                             <div class="footer-social">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                @foreach($generalSettings->social_media as $platform => $url)
+                            @php
+                                // Map platform ke class Font Awesome
+                                $icons = [
+                                    'facebook' => 'fab fa-facebook-f',
+                                    'instagram' => 'fab fa-instagram',
+                                    'twitter' => 'fab fa-twitter',
+                                    'tiktok' => 'fab fa-tiktok',
+                                    'youtube' => 'fab fa-youtube',
+                                ];
+                                $iconClass = $icons[$platform] ?? 'fab fa-question';
+                            @endphp
+                
+                            <a href="{{ $url }}" target="_blank" rel="noopener">
+                                <i class="{{ $iconClass }}"></i>
+                            </a>
+                        @endforeach
                             </div>
                         </div>
                     </div>
@@ -119,10 +82,9 @@
                     <div class="widget widget_categories footer-widget">
                         <h3 class="widget_title">Categories</h3>
                         <ul>
-                            <li><a href="#">Microgreen</a></li>
-                            <li><a href="{{ url('/product') }}">Agricultural products</a></li>
-                            <li><a href="{{ url('/service') }}">Crops farming</a></li>
-                            <li><a href="{{ url('/blog') }}">Uncategorized</a></li>
+                            @foreach ($categories as $category)
+                                <li><a href="{{ url('/product?category=' . $category->id) }}">{{ $category->name }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -145,7 +107,7 @@
         <div class="container">
             <div class="row justify-content-xl-between justify-content-center align-items-center">
                 <div class="col-auto">
-                    <p class="copyright-text">Copyright <i class="fal fa-copyright"></i> 2024 <a href="{{ url('/') }}">Farmix</a>. All Rights Reserved By <a href="https://themeforest.net/user/vecuro_themes">Vecuro</a></p>
+                    <p class="copyright-text">Copyright <i class="fal fa-copyright"></i> 2025 <a href="{{ url('/') }}">{{ $generalSettings->site_name }}</a>. All Rights Reserved By <a href="#">QTeam</a></p>
                 </div>
                 <div class="col-auto">
                     <div class="copyright-menu">

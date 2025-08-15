@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Us - Farmix')
+@section('title', 'Contact Us - ' . $generalSettings->site_name)
 
 @section('content')
     <!--==============================
@@ -36,7 +36,7 @@
                             <div class="form-title">
                                 <p class="form-text">Please fill out the form below and one of our agricultural specialists will get back in touch shortly.</p>
                             </div>
-                            <form action="#" method="post" class="form-style3">
+                            <form action="{{ route('contact.store') }}" method="post" class="form-style3">
                                 @csrf
                                 <div class="row">
                                     <div class="col-12 form-group">
@@ -81,12 +81,12 @@
                     <div class="contact-left">
                         <div class="auther-inner">
                             <div class="auther-img">
-                                <img src="https://html.vecurosoft.com/farmix/demo/assets/img/about/about-author.png" alt="about">
+                                <img src="{{ asset('storage/' . $generalSettings->ceo_photo) }}" alt="about">
                             </div>
                             <div class="auther-content">
-                                <h6 class="name">Thomas Walker</h6>
-                                <span class="designation">Founder - CEO</span>
-                                <img src="https://html.vecurosoft.com/farmix/demo/assets/img/about/contact-signature.png" alt="contact">
+                                <h6 class="name">{{ $generalSettings->ceo_name ?? 'CEO Name' }}</h6>
+                                <span class="designation">{{ $generalSettings->ceo_designation ?? 'CEO Designation' }}</span>
+                                <img src="{{ asset('storage/' . $generalSettings->ceo_signature) }}" alt="contact">
                             </div>
                         </div>
                         <div class="team-media">
@@ -95,28 +95,36 @@
                                 <div class="media-icon"><img src="https://html.vecurosoft.com/farmix/demo/assets/img/icon/icon-1-1.png" alt="icon"></div>
                                 <div class="media-body">
                                     <h3 class="media-title">Phone Number:</h3>
-                                    <p class="media-info"><a href="tel:+88013004451">+88 013 00 44 51</a> <br> Mon - Sat: 09.00 to 06.00</p>
+                                    <p class="media-info">
+                                        <a href="tel:{{ $generalSettings->site_phone }}">{{ $generalSettings->site_phone }}</a>
+                                    </p>
                                 </div>
                             </div>
                             <div class="media-style1">
                                 <div class="media-icon"><img src="https://html.vecurosoft.com/farmix/demo/assets/img/icon/icon-1-2.png" alt="icon"></div>
                                 <div class="media-body">
                                     <h3 class="media-title">Email Address:</h3>
-                                    <p class="media-info"><a href="mailto:info@farmix.com">info@farmix.com</a> <br> <a href="mailto:support@farmix.com">support@farmix.com</a></p>
+                                    <p class="media-info">
+                                        <a href="mailto:{{ $generalSettings->site_email }}">{{ $generalSettings->site_email }}</a>
+                                    </p>
                                 </div>
                             </div>
                             <div class="media-style1">
                                 <div class="media-icon"><img src="https://html.vecurosoft.com/farmix/demo/assets/img/icon/icon-1-3.png" alt="icon"></div>
                                 <div class="media-body">
                                     <h3 class="media-title">Location:</h3>
-                                    <p class="media-info">5919 Trussville Crossings Pkwy, Birmingham, United Kingdom</p>
+                                    <p class="media-info">{{ $generalSettings->site_address }}</p>
                                 </div>
                             </div>
                             <div class="media-style1">
                                 <div class="media-icon"><img src="https://html.vecurosoft.com/farmix/demo/assets/img/icon/icon-1-1.png" alt="icon"></div>
                                 <div class="media-body">
                                     <h3 class="media-title">Working Hours:</h3>
-                                    <p class="media-info">Monday - Friday: 8:00 AM - 6:00 PM<br>Saturday: 9:00 AM - 4:00 PM<br>Sunday: Closed</p>
+                                    <p class="media-info">
+                                        @foreach ($generalSettings->working_hours as $index => $item)
+                                            {{ $item['day'] }}: {{ $item['hours'] }}@if (!$loop->last)<br>@endif
+                                        @endforeach
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +132,11 @@
                 </div>
             </div>
             <div class="map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.3186960737993!2d106.80730731476831!3d-6.175392995528009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sJakarta%2C%20Indonesia!5e0!3m2!1sen!2sus!4v1703011234567!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                @if ($generalSettings->google_map_iframe)
+                    {!! $generalSettings->google_map_iframe !!}
+                @else
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.721462002364!2d106.82087531476906!3d-6.19502999550989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f44482c3c1d9%3A0x6e7892a06f3630f5!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1628178123456!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                @endif
             </div>
         </div>
     </section>
@@ -142,78 +154,20 @@
                     </div>
                     <div class="accordion-style1">
                         <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Are your products 100% natural and organic?
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Yes, all our products are 100% natural and certified organic. We use sustainable farming practices and never use harmful pesticides or chemicals. Our products are certified by recognized organic certification bodies to ensure the highest quality and purity.
+                            @foreach ($homepageSettings->faqs as $index => $faq)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}" aria-expanded="false" aria-controls="collapse{{ $index }}">
+                                            {{ $faq['question'] }}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ $index }}" class="accordion-collapse collapse @if($index === 0) show @endif" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            {{ $faq['answer'] }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        What agricultural products do you produce?
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        We produce a wide range of organic agricultural products including fresh vegetables, fruits, grains, dairy products, coconut oil, honey, and various herbs and spices. All our products are grown using sustainable farming methods and are available year-round.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Do you offer delivery services?
-                                    </button>
-                                </h2>
-                                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Yes, we offer delivery services to most areas within a 50-mile radius of our farm. For orders over $50, delivery is free. We also have partnerships with local stores and farmers markets where you can find our products.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                        Can I visit your farm for a tour?
-                                    </button>
-                                </h2>
-                                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Absolutely! We offer guided farm tours every weekend from 10 AM to 4 PM. You can see our organic farming processes, meet our animals, and learn about sustainable agriculture. Please contact us in advance to schedule your visit and ensure availability.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                        Do you offer wholesale pricing for bulk orders?
-                                    </button>
-                                </h2>
-                                <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Yes, we offer competitive wholesale pricing for restaurants, grocery stores, and other businesses. Minimum order quantities apply, and we can customize packages based on your specific needs. Contact our sales team for detailed pricing information.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                        What is your return and refund policy?
-                                    </button>
-                                </h2>
-                                <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        We stand behind the quality of our products. If you're not completely satisfied with your purchase, please contact us within 48 hours of delivery. We offer full refunds or replacements for any products that don't meet our quality standards.
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

@@ -4,18 +4,18 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title', 'Farmix - Agriculture & Farming Food Template')</title>
-    <meta name="author" content="Vecuro">
-    <meta name="description" content="Farmix - Agriculture & Farming Food Template">
-    <meta name="keywords" content="Farmix - Agriculture & Farming Food Template">
+    <title>@yield('title', $generalSettings->site_name . ' - ' . $generalSettings->site_description)</title>
+    <meta name="author" content="">
+    <meta name="description" content="{{ $generalSettings->site_description }}">
+    <meta name="keywords" content="">
     <meta name="robots" content="INDEX,FOLLOW">
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicons - Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('storage/' . $generalSettings->site_favicon) }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('storage/' . $generalSettings->site_favicon) }}" type="image/x-icon">
 
     <!--==============================
 	  Google Fonts

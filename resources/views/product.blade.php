@@ -1,11 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Our Products - Farmix')
+@section('title', 'Our Products - ' . $generalSettings->site_name)
 
 @section('content')
-    <!--==============================
-    Breadcumb
-    ============================== -->
     <div class="breadcumb-wrapper" data-bg-src="https://html.vecurosoft.com/farmix/demo/assets/img/breadcumb/breadcumb-bg.png">
         <div class="container z-index-common">
             <div class="breadcumb-content">
@@ -20,16 +17,14 @@
         </div>
     </div>
 
-    <!--==============================
-    Products area
-    ============================== -->
     <section class="products space">
         <div class="container">
             <div class="vs-sort-bar">
                 <div class="row justify-content-between align-items-center">
                     <div class="col-md-auto">
                         <div class="col-auto">
-                            <p class="woocommerce-result-count">Showing 1–8 of 8 results</p>
+                            {{-- Tampilkan jumlah produk secara dinamis --}}
+                            <p class="woocommerce-result-count">Showing {{ $products->firstItem() }}–{{ $products->lastItem() }} of {{ $products->total() }} results</p>
                         </div>
                     </div>
                     <div class="col-md-auto">
@@ -57,16 +52,25 @@
                 </div>
             </div>
             <div class="row">
+                {{-- Mulai perulangan untuk setiap produk --}}
+                @foreach ($products as $product)
                 <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="product-style1">
                         <div class="product-img">
-                            <img src="https://html.vecurosoft.com/farmix/demo/assets/img/product/product-1-1.png" alt="product img">
+                            {{-- Cek apakah ada gambar dan ambil gambar pertama --}}
+                            @if (is_array($product->images) && count($product->images) > 0)
+                                <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->name }}">
+                            @else
+                                <img src="{{ asset('path/to/placeholder.jpg') }}" alt="No image available">
+                            @endif
                         </div>
-                        <div class="product-meta">30% Off</div>
+                        {{-- <div class="product-meta">30% Off</div> --}}
                         <div class="product-about">
-                            <p class="text">800 ML</p>
-                            <h2 class="product-title"><a href="{{ route('product-details') }}">Coconut Oil Jar</a></h2>
-                            <span class="price"> <del>$18.00</del>$14.00</span>
+                            {{-- <p class="text">800 ML</p> --}}
+                            {{-- Tampilkan nama produk dan buat tautan dinamis --}}
+                            <h2 class="product-title"><a href="{{ route('product-details', ['slug' => $product->slug]) }}">{{ $product->name }}</a></h2>
+                            {{-- Tampilkan harga produk --}}
+                            <span class="price">Rp. {{ number_format($product->price, 0, ',', '.') }}</span>
                             <div class="rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -75,294 +79,73 @@
                                 <i class="fas fa-star"></i>
                             </div>
                         </div>
-                        <div class="social-style">
-                            <ul>
-                                <li>
-                                    <a class="main-icon" href="#"><i class="far fa-shopping-basket"></i></a>
-                                    <ul class="sub-list">
-                                        <li><a href="#"><i class="fas fa-exchange"></i></a></li>
-                                        <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="product-style1">
-                        <div class="product-img">
-                            <img src="https://html.vecurosoft.com/farmix/demo/assets/img/product/product-1-2.png" alt="product img">
-                        </div>
-                        <div class="product-meta">30% Off</div>
-                        <div class="product-about">
-                            <p class="text">800 ML</p>
-                            <h2 class="product-title"><a href="{{ route('product-details') }}">PureFroots Jar</a></h2>
-                            <span class="price"> <del>$18.00</del>$14.00</span>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="social-style">
-                            <ul>
-                                <li>
-                                    <a class="main-icon" href="#"><i class="far fa-shopping-basket"></i></a>
-                                    <ul class="sub-list">
-                                        <li><a href="#"><i class="fas fa-exchange"></i></a></li>
-                                        <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="product-style1">
-                        <div class="product-img">
-                            <img src="https://html.vecurosoft.com/farmix/demo/assets/img/product/product-1-3.png" alt="product img">
-                        </div>
-                        <div class="product-meta">30% Off</div>
-                        <div class="product-about">
-                            <p class="text">600 ML</p>
-                            <h2 class="product-title"><a href="{{ route('product-details') }}">Nature's Bounty</a></h2>
-                            <span class="price"> <del>$12.00</del>$14.00</span>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="social-style">
-                            <ul>
-                                <li>
-                                    <a class="main-icon" href="#"><i class="far fa-shopping-basket"></i></a>
-                                    <ul class="sub-list">
-                                        <li><a href="#"><i class="fas fa-exchange"></i></a></li>
-                                        <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="product-style1">
-                        <div class="product-img">
-                            <img src="https://html.vecurosoft.com/farmix/demo/assets/img/product/product-1-4.png" alt="product img">
-                        </div>
-                        <div class="product-meta">32% Off</div>
-                        <div class="product-about">
-                            <p class="text">900 ML</p>
-                            <h2 class="product-title"><a href="{{ route('product-details') }}">Organic Harvest</a></h2>
-                            <span class="price"> <del>$16.00</del>$15.00</span>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="social-style">
-                            <ul>
-                                <li>
-                                    <a class="main-icon" href="#"><i class="far fa-shopping-basket"></i></a>
-                                    <ul class="sub-list">
-                                        <li><a href="#"><i class="fas fa-exchange"></i></a></li>
-                                        <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="product-style1">
-                        <div class="product-img">
-                            <img src="https://html.vecurosoft.com/farmix/demo/assets/img/product/product-1-5.png" alt="product img">
-                        </div>
-                        <div class="product-meta">40% Off</div>
-                        <div class="product-about">
-                            <p class="text">700 ML</p>
-                            <h2 class="product-title"><a href="{{ route('product-details') }}">Fresh & Rooted</a></h2>
-                            <span class="price"> <del>$28.00</del>$19.00</span>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="social-style">
-                            <ul>
-                                <li>
-                                    <a class="main-icon" href="#"><i class="far fa-shopping-basket"></i></a>
-                                    <ul class="sub-list">
-                                        <li><a href="#"><i class="fas fa-exchange"></i></a></li>
-                                        <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="product-style1">
-                        <div class="product-img">
-                            <img src="https://html.vecurosoft.com/farmix/demo/assets/img/product/product-1-6.png" alt="product img">
-                        </div>
-                        <div class="product-meta">30% Off</div>
-                        <div class="product-about">
-                            <p class="text">800 ML</p>
-                            <h2 class="product-title"><a href="{{ route('product-details') }}">Froots & Greens</a></h2>
-                            <span class="price"> <del>$18.00</del>$14.00</span>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="social-style">
-                            <ul>
-                                <li>
-                                    <a class="main-icon" href="#"><i class="far fa-shopping-basket"></i></a>
-                                    <ul class="sub-list">
-                                        <li><a href="#"><i class="fas fa-exchange"></i></a></li>
-                                        <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="product-style1">
-                        <div class="product-img">
-                            <img src="https://html.vecurosoft.com/farmix/demo/assets/img/product/product-1-7.png" alt="product img">
-                        </div>
-                        <div class="product-meta">30% Off</div>
-                        <div class="product-about">
-                            <p class="text">800 ML</p>
-                            <h2 class="product-title"><a href="{{ route('product-details') }}">Earthy Delights</a></h2>
-                            <span class="price"> <del>$18.00</del>$14.00</span>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="social-style">
-                            <ul>
-                                <li>
-                                    <a class="main-icon" href="#"><i class="far fa-shopping-basket"></i></a>
-                                    <ul class="sub-list">
-                                        <li><a href="#"><i class="fas fa-exchange"></i></a></li>
-                                        <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="product-style1">
-                        <div class="product-img">
-                            <img src="https://html.vecurosoft.com/farmix/demo/assets/img/product/product-1-8.png" alt="product img">
-                        </div>
-                        <div class="product-meta">30% Off</div>
-                        <div class="product-about">
-                            <p class="text">800 ML</p>
-                            <h2 class="product-title"><a href="{{ route('product-details') }}">Purely Picked</a></h2>
-                            <span class="price"> <del>$18.00</del>$14.00</span>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="social-style">
-                            <ul>
-                                <li>
-                                    <a class="main-icon" href="#"><i class="far fa-shopping-basket"></i></a>
-                                    <ul class="sub-list">
-                                        <li><a href="#"><i class="fas fa-exchange"></i></a></li>
-                                        <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                {{-- Akhir perulangan --}}
             </div>
+
+            {{-- Render pagination secara dinamis --}}
             <div class="vs-pagination text-center mb-0 mt-4">
-                <ul>
-                    <li class="arrow"><a href="#"><i class="fal fa-long-arrow-left"></i></a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">6</a></li>
-                    <li class="arrow"><a href="#"><i class="fal fa-long-arrow-right"></i></a></li>
-                </ul>
+                {{ $products->links() }}
             </div>
         </div>
     </section>
 
-    <!--==============================
-    Offer Area
-    ============================== -->
     <div class="space-bottom">
         <div class="container">
             <div class="row">
                 <div class="offer-deal">
                     <div class="row gy-5 gx-5 align-items-center">
+                        {{-- Banner Pertama --}}
+                        @if(isset($deal1))
                         <div class="col-lg-6">
-                            <div class="row align-items-center" data-bg-src="https://html.vecurosoft.com/farmix/demo/assets/img/about/about-bg-1-2.jpg">
+                            <div class="row align-items-center" data-bg-src="{{ asset('storage/' . $deal1->background_image) }}">
                                 <div class="col-lg-6 col-md-6 px-0">
                                     <div class="deal-offer white-style">
-                                        <span class="offer-subtitle">Enjoy Healthy Food</span>
-                                        <h2 class="offer-title h3">Eat Organic</h2>
-                                        <p class="offer-text">100% Natural and pure organic products</p>
-                                        <span class="price"> <del>$18.00</del>$14.00</span>
-                                        <a href="{{ route('product') }}" class="vs-btn">Shop Now</a>
+                                        <span class="offer-subtitle">{{ $deal1->subtitle }}</span>
+                                        <h2 class="offer-title h3">{{ $deal1->title }}</h2>
+                                        <p class="offer-text">{{ $deal1->text }}</p>
+                                        <span class="price">
+                                            @if($deal1->price_old) <del>{{ $deal1->price_old }}</del> @endif
+                                            {{ $deal1->price_new }}
+                                        </span>
+                                        <a href="{{ $deal1->link }}" class="vs-btn">Shop Now</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 px-0">
                                     <div class="offer-img">
-                                        <img src="https://html.vecurosoft.com/farmix/demo/assets/img/about/deal-offer1.png" alt="offer">
+                                        <img src="{{ asset('storage/' . $deal1->offer_image) }}" alt="offer">
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endif
+
+                        {{-- Banner Kedua --}}
+                        @if(isset($deal2))
                         <div class="col-lg-6">
-                            <div class="row align-items-center" data-bg-src="https://html.vecurosoft.com/farmix/demo/assets/img/about/about-bg-1-1.jpg">
+                            <div class="row align-items-center" data-bg-src="{{ asset('storage/' . $deal2->background_image) }}">
                                 <div class="col-lg-6 col-md-6 px-0">
                                     <div class="deal-offer">
-                                        <span class="offer-subtitle">Organic Deal</span>
-                                        <h2 class="offer-title h3">Pack of 2</h2>
-                                        <p class="offer-text">100% Natural and pure organic products</p>
-                                        <span class="price"> <del>$18.00</del>$14.00</span>
-                                        <a href="{{ route('product') }}" class="vs-btn">Shop Now</a>
+                                        <span class="offer-subtitle">{{ $deal2->subtitle }}</span>
+                                        <h2 class="offer-title h3">{{ $deal2->title }}</h2>
+                                        <p class="offer-text">{{ $deal2->text }}</p>
+                                        <span class="price">
+                                            @if($deal2->price_old) <del>{{ $deal2->price_old }}</del> @endif
+                                            {{ $deal2->price_new }}
+                                        </span>
+                                        <a href="{{ $deal2->link }}" class="vs-btn">Shop Now</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 px-0">
                                     <div class="offer-img">
-                                        <img src="https://html.vecurosoft.com/farmix/demo/assets/img/about/deal-offer1.png" alt="offer">
+                                        <img src="{{ asset('storage/' . $deal2->offer_image) }}" alt="offer">
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                  </div>
             </div>
