@@ -303,36 +303,36 @@ Faq Area
                 <div class="accordion-style1">
                     <div class="accordion" id="accordionExample">
                         @foreach ($settings->faqs as $faq)
-                      <div class="accordion-item">
-                        <h2 class="accordion-header">
-                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            {{ $faq['question'] }}
-                          </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                          <div class="accordion-body">
-                            {{ $faq['answer'] }}
-                          </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $loop->index }}" aria-expanded="false" aria-controls="collapse-{{ $loop->index }}">
+                                    {{ $faq['question'] }}
+                                </button>
+                            </h2>
+                            <div id="collapse-{{ $loop->index }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{ $faq['answer'] }}
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      @endforeach
+                        @endforeach
                     </div>
-                  </div>
+                </div>
             </div>
             <div class="col-lg-6">
                 <div class="faq-img">
-                  <div class="faq-img1">
-                    @if($settings->faq_image1)
-                    <img src="{{ asset('storage/' . $settings->faq_image1) }}" alt="faq 1">
-                    @endif
-                  </div>
-                  <div class="faq-img2">
-                    @if($settings->faq_image2)
-                    <img src="{{ asset('storage/' . $settings->faq_image2) }}" alt="faq 1">
-                    @endif
-                  </div>
+                    <div class="faq-img1">
+                        @if($settings->faq_image1)
+                        <img src="{{ asset('storage/' . $settings->faq_image1) }}" alt="faq 1">
+                        @endif
+                    </div>
+                    <div class="faq-img2">
+                        @if($settings->faq_image2)
+                        <img src="{{ asset('storage/' . $settings->faq_image2) }}" alt="faq 1">
+                        @endif
+                    </div>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
 </section>
