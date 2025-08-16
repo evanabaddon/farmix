@@ -179,7 +179,8 @@ Product Area
                     </div>
                     <div class="product-about">
                         <h2 class="product-title"><a href="{{ url('/product') }}">{{ $product->name }}</a></h2>
-                        <span class="price">Rp. {{ number_format($product->price, 0, ',', '.') }}</span>
+                        {{-- <span class="price">Rp. {{ number_format($product->price, 0, ',', '.') }}</span> --}}
+                        <span class="price">{{ formatCurrency($product->price) }}</span>
                         <div class="rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>

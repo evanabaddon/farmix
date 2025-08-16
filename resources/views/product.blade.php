@@ -70,7 +70,7 @@
                             {{-- Tampilkan nama produk dan buat tautan dinamis --}}
                             <h2 class="product-title"><a href="{{ route('product-details', ['slug' => $product->slug]) }}">{{ $product->name }}</a></h2>
                             {{-- Tampilkan harga produk --}}
-                            <span class="price">Rp. {{ number_format($product->price, 0, ',', '.') }}</span>
+                            <span class="price">{{ formatCurrency($product->price) }}</span>
                             <div class="rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>

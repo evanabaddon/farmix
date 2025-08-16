@@ -29,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
         ]);
         View::share('generalSettings', app(GeneralSettings::class));
         View::share('categories', Category::all());
+        require_once app_path('Helpers/CurrencyHelper.php');
     }
 }

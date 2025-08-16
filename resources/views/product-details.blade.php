@@ -106,7 +106,7 @@
                 </div>
                 <h2 class="product-title">{{ $product->name }}</h2>
                 <div class="actions">
-                    <p class="product-price">Rp. {{ number_format($product->price, 0, ',', '.') }}</p>
+                    <p class="product-price">{{ formatCurrency($product->price) }}</p>
                 </div>
                 <div class="product_meta">
                   <span class="sku_wrapper">
