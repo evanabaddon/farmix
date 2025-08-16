@@ -26,7 +26,7 @@ class FrontendController extends Controller
             ->get();
 
         // Categories
-        $categoriesQuery = Category::query();
+        $categoriesQuery = Category::query()->withCount('products');;
         if (!$settings->categories_show_all) {
             $categoriesQuery->limit($settings->categories_limit);
         }
@@ -69,8 +69,6 @@ class FrontendController extends Controller
             'teams'       => $teams,
             'brands' => $brands,
         ]);
-
-        // return view('home', compact('sliders'));
     }
     public function about(GeneralSettings $generalSettings)
     {
