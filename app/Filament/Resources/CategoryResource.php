@@ -37,7 +37,7 @@ class CategoryResource extends Resource
                     ->required()
                     ->live(onBlur: false)
                     ->afterStateUpdated(function (string $operation,string $state, Set $set){
-                        if ($context === 'create') {
+                        if ($operation === 'create') {
                             $set('slug', Str::slug($state));
                         }
                     })
