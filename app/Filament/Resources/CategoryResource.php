@@ -7,6 +7,7 @@ use Filament\Tables;
 use App\Models\Category;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CategoryResource\RelationManagers;
+use Filament\Forms\Set;
 
 class CategoryResource extends Resource
 {
@@ -32,15 +34,18 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label('Name')
                     ->required()
-                    ->maxLength(255),
+                    ->live(onBlur: false)
+                    ->afterStateUpdated(function (string $operation,string $state, Set $set){
+                        if ($context === 'create') {
+                            $set('slug', Str::slug($state));
+                        }
+                    })
+                    ->lazy(),
 
                 TextInput::make('slug')
-                    ->label('Slug')
                     ->required()
-                    ->unique(ignoreRecord: true)
-                    ->maxLength(255),
+                    ->unique(ignoreRecord: true),
 
                 FileUpload::make('image')
                     ->label('Image')
