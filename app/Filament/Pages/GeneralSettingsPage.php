@@ -6,6 +6,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
 use App\Settings\GeneralSettings;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
@@ -79,7 +80,14 @@ class GeneralSettingsPage extends SettingsPage
                         TextInput::make('site_currency')->label('Currency'),
                         TextInput::make('site_currency_symbol')->label('Currency Symbol'),
                         TextInput::make('site_currency_code')->label('Currency Code'),
-                        TextInput::make('site_currency_position')->label('Currency Position'),
+                        Select::make('site_currency_position')
+                            ->label('Currency Position')
+                            ->options([
+                                'left' => 'Left (Rp 1000)',
+                                'right' => 'Right (1000 Rp)',
+                            ])
+                            ->required()
+                            ->default('left'),
                         TextInput::make('site_currency_format')->label('Currency Format'),
                     ]),
 
