@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -33,8 +34,13 @@ class BlogCategoryResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
-                    ->reactive()
-                    ->afterStateUpdated(fn (string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
+                    ->live(onBlur: false)
+                    ->afterStateUpdated(function (string $operation,string $state, Set $set){
+                        if ($operation === 'create') {
+                            $set('slug', Str::slug($state));
+                        }
+                    })
+                    ->lazy(),
                 TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord: true),

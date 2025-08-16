@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Models\Tag;
 use Filament\Forms;
 use Filament\Tables;
+use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -29,9 +30,14 @@ class TagResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                        ->required()
-                        ->reactive()
-                        ->afterStateUpdated(fn (string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
+                    ->required()
+                    ->live(onBlur: false)
+                    ->afterStateUpdated(function (string $operation,string $state, Set $set){
+                        if ($operation === 'create') {
+                            $set('slug', Str::slug($state));
+                        }
+                    })
+                    ->lazy(),
                 TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord: true),

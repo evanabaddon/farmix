@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use App\Models\Post;
 use Filament\Tables;
+use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -36,8 +37,13 @@ class PostResource extends Resource
                 TextInput::make('title')
                         ->required()
                         ->maxLength(255)
-                        ->reactive()
-                        ->afterStateUpdated(fn (string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
+                        ->live(onBlur: false)
+                        ->afterStateUpdated(function (string $operation,string $state, Set $set){
+                            if ($operation === 'create') {
+                                $set('slug', Str::slug($state));
+                            }
+                        })
+                        ->lazy(),
                 TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord: true)
