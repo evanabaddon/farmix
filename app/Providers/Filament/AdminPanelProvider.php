@@ -2,21 +2,25 @@
 
 namespace App\Providers\Filament;
 
-use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\AuthenticateSession;
-use Filament\Http\Middleware\DisableBladeIconComponents;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use App\Filament\Resources\ContactResource\Widgets\ContactStatsWidget;
+use App\Filament\Resources\ContactResource\Widgets\RecentContactsWidget;
 use Filament\Pages;
 use Filament\Panel;
+use Filament\Widgets;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Routing\Middleware\SubstituteBindings;
+use Filament\Navigation\NavigationGroup;
+use Filament\Http\Middleware\Authenticate;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Filament\Http\Middleware\AuthenticateSession;
+use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Http\Middleware\DisableBladeIconComponents;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Filament\Navigation\NavigationItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -37,9 +41,26 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
+                RecentContactsWidget::class,
             ])
+            ->navigationGroups([
+                NavigationGroup::make()
+                     ->label('Contact Management'),
+                NavigationGroup::make()
+                    ->label('Blog'),
+                NavigationGroup::make()
+                    ->label('Brands'),
+                NavigationGroup::make()
+                    ->label('Product'),
+                NavigationGroup::make()
+                    ->label('Teams'),
+                NavigationGroup::make()
+                    ->label('Website Settings'),
+            ])
+            ->renderHook(
+                'panels::sidebar.footer',
+                fn () => view('filament.custom.view-website'),
+            )
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

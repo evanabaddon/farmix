@@ -23,6 +23,8 @@ class BlogCategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document';
 
+    protected static ?string $navigationLabel = 'Categories';
+
     protected static ?string $navigationGroup = 'Blog';
 
     public static function form(Form $form): Form
