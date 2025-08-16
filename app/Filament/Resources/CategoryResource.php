@@ -61,6 +61,7 @@ class CategoryResource extends Resource
                TextColumn::make('name')->searchable()->sortable(),
                ImageColumn::make('image')->square(),
                TextColumn::make('slug'),
+               TextColumn::make('products_count')->counts('products')->label('Products Count'),
                TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
