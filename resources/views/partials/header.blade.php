@@ -56,23 +56,31 @@ Header Area
                 </div>
                 <div class="col-auto">
                     <div class="social-style1">
-                        @foreach($generalSettings->social_media as $platform => $url)
-                            @php
-                                // Map platform ke class Font Awesome
-                                $icons = [
-                                    'facebook' => 'fab fa-facebook-f',
-                                    'instagram' => 'fab fa-instagram',
-                                    'twitter' => 'fab fa-twitter',
-                                    'youtube' => 'fab fa-youtube',
-                                ];
-                                $iconClass = $icons[$platform] ?? 'fab fa-question';
-                            @endphp
-                
-                            <a href="{{ $url }}" target="_blank" rel="noopener">
-                                <i class="{{ $iconClass }}"></i>
+                        @if(!empty($generalSettings->social_media['facebook']))
+                            <a href="{{ $generalSettings->social_media['facebook'] }}" target="_blank" rel="noopener">
+                                <i class="fab fa-facebook-f"></i>
                             </a>
-                        @endforeach
+                        @endif
+                    
+                        @if(!empty($generalSettings->social_media['instagram']))
+                            <a href="{{ $generalSettings->social_media['instagram'] }}" target="_blank" rel="noopener">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        @endif
+                    
+                        @if(!empty($generalSettings->social_media['twitter']))
+                            <a href="{{ $generalSettings->social_media['twitter'] }}" target="_blank" rel="noopener">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        @endif
+                    
+                        @if(!empty($generalSettings->social_media['youtube']))
+                            <a href="{{ $generalSettings->social_media['youtube'] }}" target="_blank" rel="noopener">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        @endif
                     </div>
+                    
                 </div>
                 
             </div>
