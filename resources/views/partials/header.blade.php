@@ -63,7 +63,6 @@ Header Area
                                     'facebook' => 'fab fa-facebook-f',
                                     'instagram' => 'fab fa-instagram',
                                     'twitter' => 'fab fa-twitter',
-                                    'tiktok' => 'fab fa-tiktok',
                                     'youtube' => 'fab fa-youtube',
                                 ];
                                 $iconClass = $icons[$platform] ?? 'fab fa-question';
