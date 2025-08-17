@@ -135,7 +135,7 @@
                             </div>
                         @endif
                         <div class="process-content">
-                            <h3 class="process-title h5"><a href="{{ route('service-details') }}">{{ $step['title'] ?? '' }}</a></h3>
+                            <h3 class="process-title h5"><a href="#">{{ $step['title'] ?? '' }}</a></h3>
                             @if($step['text'] ?? false)
                                 <p class="process-text">{{ $step['text'] }}</p>
                             @endif
