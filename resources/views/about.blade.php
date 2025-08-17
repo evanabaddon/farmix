@@ -94,7 +94,7 @@
                                         @if($feature['icon'] ?? false)
                                             <div class="about-icon"><img src="{{ asset('storage/' . $feature['icon']) }}" alt="icon"></div>
                                         @endif
-                                        <h3 class="about-title"><a href="{{ route('service-details') }}">{{ $feature['title'] ?? '' }}</a></h3>
+                                        <h3 class="about-title"><a href="#">{{ $feature['title'] ?? '' }}</a></h3>
                                         @if($feature['text'] ?? false)
                                             <p class="about-text">{{ $feature['text'] }}</p>
                                         @endif
