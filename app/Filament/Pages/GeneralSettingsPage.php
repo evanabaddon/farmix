@@ -52,11 +52,11 @@ class GeneralSettingsPage extends SettingsPage
                 Section::make('Social Media Links')
                     ->columns(2)
                     ->schema([
-                        TextInput::make('social_media.facebook')->label('Facebook URL')->url()->required(),
-                        TextInput::make('social_media.instagram')->label('Instagram URL')->url()->required(),
-                        TextInput::make('social_media.twitter')->label('Twitter URL')->url()->required(),
-                        TextInput::make('social_media.tiktok')->label('TikTok URL')->url()->required(),
-                        TextInput::make('social_media.youtube')->label('YouTube URL')->url()->required(),
+                        TextInput::make('social_media.facebook')->label('Facebook URL')->url(),
+                        TextInput::make('social_media.instagram')->label('Instagram URL')->url(),
+                        TextInput::make('social_media.twitter')->label('Twitter URL')->url(),
+                        TextInput::make('social_media.tiktok')->label('TikTok URL')->url(),
+                        TextInput::make('social_media.youtube')->label('YouTube URL')->url(),
                     ]),
 
                 // ========================
