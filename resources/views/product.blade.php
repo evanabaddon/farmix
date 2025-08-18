@@ -31,15 +31,13 @@
                         <div class="row justify-content-center">
                             <div class="col-sm-auto">
                                 <form class="woocommerce-ordering" method="get">
-                                    <select name="orderby" class="orderby" aria-label="Shop order">
-                                        <option value="menu_order" selected="selected">Default Sorting</option>
-                                        <option value="popularity">Sort by popularity</option>
-                                        <option value="rating">Sort by average rating</option>
-                                        <option value="date">Sort by latest</option>
-                                        <option value="price">Sort by price: low to high</option>
-                                        <option value="price-desc">Sort by price: high to low</option>
+                                    <select name="orderby" class="orderby" aria-label="Shop order" onchange="this.form.submit()">
+                                        <option value="menu_order" {{ request('orderby') == 'menu_order' ? 'selected' : '' }}>Default Sorting</option>
+                                        <option value="date" {{ request('orderby') == 'date' ? 'selected' : '' }}>Sort by latest</option>
+                                        <option value="price" {{ request('orderby') == 'price' ? 'selected' : '' }}>Sort by price: low to high</option>
+                                        <option value="price-desc" {{ request('orderby') == 'price-desc' ? 'selected' : '' }}>Sort by price: high to low</option>
                                     </select>
-                                </form>
+                                </form>                                
                             </div>
                             <div class="col-auto">
                                 <div class="nav" role=tablist>

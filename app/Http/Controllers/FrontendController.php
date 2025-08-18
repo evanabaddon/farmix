@@ -188,11 +188,47 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function product(GeneralSettings $generalSettings)
+    // public function product(GeneralSettings $generalSettings)
+    // {
+    //     // Ambil semua produk, diurutkan dari yang terbaru, dengan pagination
+    //     $products = Product::latest()->paginate(8);
+    //     // Ambil dua banner, misalnya banner pertama dan kedua
+    //     $deal1 = OfferBanner::first();
+    //     $deal2 = OfferBanner::skip(1)->first();
+
+    //     return view('product', [
+    //         'products' => $products,
+    //         'generalSettings' => $generalSettings,
+    //         'deal1' => $deal1,
+    //         'deal2' => $deal2,
+    //     ]);
+    // }
+
+    public function product(Request $request, GeneralSettings $generalSettings)
     {
-        // Ambil semua produk, diurutkan dari yang terbaru, dengan pagination
-        $products = Product::latest()->paginate(8);
-        // Ambil dua banner, misalnya banner pertama dan kedua
+        $query = Product::query();
+
+        // Sorting
+        $sort = $request->get('orderby', 'menu_order');
+        switch ($sort) {
+            case 'date':
+                $query->orderBy('created_at', 'desc');
+                break;
+            case 'price':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price-desc':
+                $query->orderBy('price', 'desc');
+                break;
+            default:
+                $query->orderBy('id', 'asc'); // Default
+                break;
+        }
+
+        // Pagination (supaya query string ikut terbawa di pagination)
+        $products = $query->paginate(8)->appends($request->query());
+
+        // Ambil 2 banner
         $deal1 = OfferBanner::first();
         $deal2 = OfferBanner::skip(1)->first();
 
@@ -203,6 +239,7 @@ class FrontendController extends Controller
             'deal2' => $deal2,
         ]);
     }
+
 
     public function productByCategory(GeneralSettings $generalSettings, string $slug)
     {
