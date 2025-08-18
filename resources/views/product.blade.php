@@ -145,9 +145,8 @@
                 </div>
             </div>
             {{-- Render pagination secara dinamis --}}
-            <div class="vs-pagination text-center mb-0 mt-4">
-                {{ $products->links() }}
-            </div>
+            {{ $products->links('vendor.pagination.custom') }}
+
         </div>
     </section>
 
