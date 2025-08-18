@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Our Products - ' . $generalSettings->site_name)
+@section('title', ($currentCategory->name ?? 'Our Products') . ' - ' . $generalSettings->site_name)
 
 @section('content')
     <div class="breadcumb-wrapper" data-bg-src="https://html.vecurosoft.com/farmix/demo/assets/img/breadcumb/breadcumb-bg.png">
@@ -11,7 +11,7 @@
             <div class="breadcumb-menu-wrap">
                 <ul class="breadcumb-menu">
                     <li><a href="{{ route('home') }}">Home</a></li>
-                    <li>Our Products</li>
+                    <li>{{ $currentCategory->name ?? 'Our Products' }}</li>
                 </ul>
             </div>
         </div>

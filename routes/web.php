@@ -15,6 +15,9 @@ Route::get('/blog/tag/{slug}', [FrontendController::class, 'blogByTag'])->name('
 
 Route::get('/product', [FrontendController::class, 'product'])->name('product');
 Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->name('product-details');
+Route::get('/products/category/{slug}', [App\Http\Controllers\FrontendController::class, 'productByCategory'])
+    ->name('products.byCategory');
+
 Route::get('/cart', [FrontendController::class, 'cart']);
 Route::get('/checkout', [FrontendController::class, 'checkout']);
 Route::get('/project', [FrontendController::class, 'project']);

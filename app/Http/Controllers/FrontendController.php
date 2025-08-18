@@ -204,6 +204,27 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function productByCategory(GeneralSettings $generalSettings, string $slug)
+    {
+        $category = Category::where('slug', $slug)->firstOrFail();
+
+        $products = $category->products()
+            ->latest()
+            ->paginate(8);
+
+        $deal1 = OfferBanner::first();
+        $deal2 = OfferBanner::skip(1)->first();
+
+        return view('product', [
+            'products' => $products,
+            'generalSettings' => $generalSettings,
+            'deal1' => $deal1,
+            'deal2' => $deal2,
+            'currentCategory' => $category, // 🔑 kirim kategori
+        ]);
+    }
+
+
     public function productDetails(GeneralSettings $generalSettings, string $slug)
     {
         $product = Product::where('slug', $slug)

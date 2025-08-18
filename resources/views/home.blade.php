@@ -75,7 +75,7 @@ Categories Area
                         </div>
                         <div class="categorie-content">
                             <h3 class="categorie-title h5">
-                                <a href="">
+                                <a href="{{ route('products.byCategory', $category->slug) }}">
                                     {{ $category->name }}
                                 </a>
                             </h3>
