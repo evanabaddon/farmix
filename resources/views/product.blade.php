@@ -125,7 +125,6 @@
                                 </div>
                                 {{-- <div class="product-meta">30% Off</div> --}}
                                 <div class="product-about">
-                                    {{-- <p class="text">800 ML</p> --}}
                                     {{-- Tampilkan nama produk dan buat tautan dinamis --}}
                                     <h2 class="product-title"><a href="{{ route('product-details', ['slug' => $product->slug]) }}">{{ $product->name }}</a></h2>
                                     {{-- Tampilkan harga produk --}}
@@ -165,8 +164,8 @@
                                         <h2 class="offer-title h3">{{ $deal1->title }}</h2>
                                         <p class="offer-text">{{ $deal1->text }}</p>
                                         <span class="price">
-                                            @if($deal1->price_old) <del>{{ $deal1->price_old }}</del> @endif
-                                            {{ $deal1->price_new }}
+                                            @if(formatCurrency($deal1->price_old)) <del>{{ formatCurrency($deal1->price_old) }}</del> @endif
+                                            {{ formatCurrency($deal1->price_new) }}
                                         </span>
                                         <a href="{{ $deal1->link }}" class="vs-btn">Shop Now</a>
                                     </div>
@@ -190,8 +189,8 @@
                                         <h2 class="offer-title h3">{{ $deal2->title }}</h2>
                                         <p class="offer-text">{{ $deal2->text }}</p>
                                         <span class="price">
-                                            @if($deal2->price_old) <del>{{ $deal2->price_old }}</del> @endif
-                                            {{ $deal2->price_new }}
+                                            @if(formatCurrency($deal2->price_old)) <del>{{ formatCurrency($deal2->price_old) }}</del> @endif
+                                            {{ formatCurrency($deal2->price_new) }}
                                         </span>
                                         <a href="{{ $deal2->link }}" class="vs-btn">Shop Now</a>
                                     </div>

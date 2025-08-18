@@ -38,6 +38,15 @@
     <!-- Theme Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+    <style>
+        .vs-pagination ul li.active a,
+        .vs-pagination ul li a.current-page {
+            background-color: var(--theme-color);
+            color: #fff !important;
+            border-radius: 4px;
+        }
+    </style>
+
     @stack('styles')
 </head>
 
