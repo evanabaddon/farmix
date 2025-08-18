@@ -113,7 +113,7 @@
                   <p>SKU:</p> <span class="sku">{{ $product->sku }}</span>
                   </span>
                   <span class="posted_in">
-                  <p>Category:</p> <a href="{{ route('product') }}" rel="tag">{{ $product->category->name ?? 'Uncategorized' }}</a>
+                  <p>Category:</p> <a href="{{ route('products.byCategory', $product->category->slug) }}" rel="tag">{{ $product->category->name ?? 'Uncategorized' }}</a>
                 </span>
                 </div>
               </div>
