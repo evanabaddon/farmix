@@ -40,49 +40,110 @@
                                 </form>                                
                             </div>
                             <div class="col-auto">
-                                <div class="nav" role=tablist>
-                                    <a href="#" class="icon-btn" id="tab-shop-list" data-bs-toggle="tab" data-bs-target="#tab-list" role="tab" aria-controls="tab-grid" aria-selected="false"><i class="fas fa-list"></i></a>
-                                    <a href="#" class="icon-btn active" id="tab-shop-grid" data-bs-toggle="tab" data-bs-target="#tab-grid" role="tab" aria-controls="tab-grid" aria-selected="true"><i class="fas fa-th"></i></a>
+                                <div class="nav" role="tablist">
+                                    <a href="#" class="icon-btn" id="tab-shop-list"
+                                       data-bs-toggle="tab" data-bs-target="#tab-list"
+                                       role="tab" aria-controls="tab-list" aria-selected="false">
+                                       <i class="fas fa-list"></i>
+                                    </a>
+                                    <a href="#" class="icon-btn active" id="tab-shop-grid"
+                                       data-bs-toggle="tab" data-bs-target="#tab-grid"
+                                       role="tab" aria-controls="tab-grid" aria-selected="true">
+                                       <i class="fas fa-th"></i>
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                {{-- LIST VIEW --}}
+                <div class="tab-pane fade" id="tab-list" role="tabpanel" aria-labelledby="tab-shop-list">
+                    <div class="row">
+                        @foreach ($products as $product)
+                            <div class="col-12 mb-4">
+                                <div class="product-style1 d-flex align-items-center p-3 border rounded">
+                                    
+                                    {{-- Gambar produk --}}
+                                    <div class="product-img me-3">
+                                        @if (is_array($product->images) && count($product->images) > 0)
+                                            <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->name }}" style="max-width:150px">
+                                        @else
+                                            <img src="{{ asset('path/to/placeholder.jpg') }}" alt="No image available" style="max-width:150px">
+                                        @endif
+                                    </div>
+                
+                                    {{-- Detail produk --}}
+                                    <div class="product-about flex-grow-1">
+                                        <h2 class="product-title mb-1">
+                                            <a href="{{ route('product-details', ['slug' => $product->slug]) }}">{{ $product->name }}</a>
+                                        </h2>
+                
+                                        {{-- Deskripsi singkat --}}
+                                        <p class="mb-2">
+                                            {{ Str::limit(strip_tags($product->description), 120) }}
+                                        </p>
+                
+                                        {{-- Harga + Rating sejajar --}}
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="price me-3">{{ formatCurrency($product->price) }}</span>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                
+                                        {{-- Tombol Read More --}}
+                                        <a href="{{ route('product-details', ['slug' => $product->slug]) }}" class="vs-btn">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                
+
+            
+                {{-- GRID VIEW --}}
+                <div class="tab-pane fade show active" id="tab-grid" role="tabpanel" aria-labelledby="tab-shop-grid">
+                    <div class="row">
+                        @foreach ($products as $product)
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <div class="product-style1">
+                                <div class="product-img">
+                                    {{-- Cek apakah ada gambar dan ambil gambar pertama --}}
+                                    @if (is_array($product->images) && count($product->images) > 0)
+                                        <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->name }}">
+                                    @else
+                                        <img src="{{ asset('path/to/placeholder.jpg') }}" alt="No image available">
+                                    @endif
+                                </div>
+                                {{-- <div class="product-meta">30% Off</div> --}}
+                                <div class="product-about">
+                                    {{-- <p class="text">800 ML</p> --}}
+                                    {{-- Tampilkan nama produk dan buat tautan dinamis --}}
+                                    <h2 class="product-title"><a href="{{ route('product-details', ['slug' => $product->slug]) }}">{{ $product->name }}</a></h2>
+                                    {{-- Tampilkan harga produk --}}
+                                    <span class="price">{{ formatCurrency($product->price) }}</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
-            <div class="row">
-                {{-- Mulai perulangan untuk setiap produk --}}
-                @foreach ($products as $product)
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="product-style1">
-                        <div class="product-img">
-                            {{-- Cek apakah ada gambar dan ambil gambar pertama --}}
-                            @if (is_array($product->images) && count($product->images) > 0)
-                                <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->name }}">
-                            @else
-                                <img src="{{ asset('path/to/placeholder.jpg') }}" alt="No image available">
-                            @endif
-                        </div>
-                        {{-- <div class="product-meta">30% Off</div> --}}
-                        <div class="product-about">
-                            {{-- <p class="text">800 ML</p> --}}
-                            {{-- Tampilkan nama produk dan buat tautan dinamis --}}
-                            <h2 class="product-title"><a href="{{ route('product-details', ['slug' => $product->slug]) }}">{{ $product->name }}</a></h2>
-                            {{-- Tampilkan harga produk --}}
-                            <span class="price">{{ formatCurrency($product->price) }}</span>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-                {{-- Akhir perulangan --}}
-            </div>
-
             {{-- Render pagination secara dinamis --}}
             <div class="vs-pagination text-center mb-0 mt-4">
                 {{ $products->links() }}
